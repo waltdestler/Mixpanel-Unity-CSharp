@@ -1,0 +1,90 @@
+# Setup #
+
+If you want to track user behavior on your Unity3D application, first download the [mixpanel.unitypackage][mixpanel_package] file.
+
+Next, import `mixpanel.unitypackage` into your Unity project by selecting the "Assets" menu, hovering over "Import Package", and clicking "Custom Package".
+
+![Import Package][import_menu]
+
+Locate the `mixpanel.unitypackage` file you just downloaded and click "Open". You will see this window:
+
+![Import Package][import_window]
+
+From this window you can select the individual files you want to import into your Unity project. The only two **required** files for the API are `Mixpanel.js` and `LitJson.dll`. The `example.unity` and `MixpanelExample.js` files are for tutorial purposes only and not required to use the API. If you want you may uncheck these two **optional** files or delete them later from your project at any time.
+
+1. `Mixpanel.js` - This is a **required** file which contains the core Mixpanel API for Unity3D.
+2. `LitJson.dll` - This is a **required** file which is used by Mixpanel.js to translate Unity data types into JSON, the language understood by Mixpanel.
+3. `MixpanelExample.js` - This is an **optional** file containing example source code demonstrating how to use the Mixpanel API. This tutorial is similar to the contents of this file, but doesn't follow it exactly.
+4. `example.unity` - This is an **optional** scene file containing an object with the `MixpanelExample.js` script attached. You can open the scene in the Unity editor and test out the API from this scene.
+
+Click the "Import" button to finish importing the Mixpanel API into your project.
+
+As an alternative to simply downloading `mixpanel.unitypackage`, you may also clone the git repository, in which case you can simply copy the API files from the repository:
+
+	git clone https://holyfuzz@github.com/holyfuzz/Mixpanel-Unity.git
+
+This repository contains an entire Unity3D project, which is set in a mode to work with version control systems such as Git. This mode automatically creates additional `Mixpanel.js.meta`, `LitJson.dll.meta`, `MixpanelExample.js.meta`, and `example.unity.meta` files. You do **not** need to copy these additional "`.meta`" files into your own project.
+
+# Initializing Mixpanel #
+
+The first thing you need to do in order to use Mixpanel is to initialize the `Mixpanel` class. At the very least you must set your unique `Mixpanel.Token` string. We recommend doing this in the `Start` method of a script in the very first scene of your application.
+	
+	function Start()
+	{
+		Mixpanel.Token = "YOUR MIXPANEL TOKEN HERE";
+	}
+	
+# Tracking Events #
+After initializing the `Mixpanel` class, you are ready to track events. Sending an event with no properties is very easy, and you can do this from anywhere in any of your scripts:
+
+	Mixpanel.SendEvent("name of event");
+	
+If you want to add properties to the event you can do the following:
+	
+	Mixpanel.SendEvent("name of event", {
+		"name of property 1" : value_of_property1, // Most common types such as int, float, double, and string are supported.
+		"name of property 2" : value_of_property2
+	});
+
+# Super Properties #
+Super properties are an easy way to store data about your users. They are global properties that get attached to everything you are tracking. More information can be found [here](https://mixpanel.com/docs/properties-or-segments/how-do-i-set-a-property-every-time).
+
+If you want to register a super property for your current user, you can do it as follows:
+
+	Mixpanel.SuperProperties.Add("name of super_property", value_of_super_property); // Most common types such as int, float, double, and string are supported.
+
+It's often useful to log data about your application with all events. For example, we can add some super properties to the `Start` method we created earlier:
+
+	function Start()
+	{
+		Mixpanel.Token = "YOUR MIXPANEL TOKEN HERE";
+
+		// Set some "super properties" to be sent with every event.
+		Mixpanel.SuperProperties.Add("platform", Application.platform.ToString());
+		Mixpanel.SuperProperties.Add("quality", QualitySettings.names[QualitySettings.GetQualityLevel()]);
+		Mixpanel.SuperProperties.Add("fullscreen", Screen.fullScreen);
+		Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
+	}
+
+# Identifying a User #
+Mixpanel uses a one-way hash of the MAC address of the current device as its default identifier. You can easily change the identifier with the following call:
+
+	Mixpanel.DistinctID = "the distinct ID string of your user";
+
+Typically this would be done in that `Start` method, so our `Start` method from earlier could be further expanded like this:
+
+	function Start()
+	{
+		Mixpanel.Token = "YOUR MIXPANEL TOKEN HERE";
+		Mixpanel.DistinctID = "the distinct ID string of your user";
+
+		// Set some "super properties" to be sent with every event.
+		Mixpanel.SuperProperties.Add("platform", Application.platform.ToString());
+		Mixpanel.SuperProperties.Add("quality", QualitySettings.names[QualitySettings.GetQualityLevel()]);
+		Mixpanel.SuperProperties.Add("fullscreen", Screen.fullScreen);
+		Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
+	}
+
+[mixpanel_package]: https://github.com/downloads/holyfuzz/Mixpanel-Unity/mixpanel.unitypackage "mixpanel.unitypackage"
+[import_menu]: https://github.com/holyfuzz/Mixpanel-Unity/raw/master/Docs/import_menu.png "Import Custom Package Menu"
+[import_window]: https://github.com/holyfuzz/Mixpanel-Unity/raw/master/Docs/import_window.png "Import Package Window"
