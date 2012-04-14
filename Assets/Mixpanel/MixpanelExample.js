@@ -19,9 +19,9 @@ function OnGUI()
 	Mixpanel.Token = Token;
 	Mixpanel.DistinctID = DistinctID;
 	
-    GUILayout.Label("This is an example demonstrating how to use the Mixpanel integration plugin for Unity3D.");
-    GUILayout.Label("All source code for this example is located in \"Assets/Mixpanel Analytics/MixpanelExample.js\".");
-    
+	GUILayout.Label("This is an example demonstrating how to use the Mixpanel integration plugin for Unity3D.");
+	GUILayout.Label("All source code for this example is located in \"Assets/Mixpanel Analytics/MixpanelExample.js\".");
+
 	if(String.IsNullOrEmpty(Mixpanel.Token))
 	{
 		GUI.color = Color.red;
