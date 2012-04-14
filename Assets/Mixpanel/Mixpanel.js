@@ -61,7 +61,8 @@ public static class Mixpanel
 
 		var propsDict = new Dictionary.<String, Object>();
 		propsDict.Add("distinct_id", DistinctID);
-		propsDict.Add("token", Token);
+		if(!String.IsNullOrEmpty(Token))
+			propsDict.Add("token", Token);
 		for(var kvp in SuperProperties)
 		{
 			if(kvp.Value instanceof Single) // LitJSON doesn't support floats.

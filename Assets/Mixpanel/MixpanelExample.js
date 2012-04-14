@@ -7,6 +7,9 @@ private var _property2 = "bar";
 
 function Start()
 {
+	Mixpanel.Token = Token;
+	Mixpanel.DistinctID = DistinctID;
+
 	// Set some "super properties" to be sent with every event.
 	Mixpanel.SuperProperties.Add("platform", Application.platform.ToString());
 	Mixpanel.SuperProperties.Add("quality", QualitySettings.names[QualitySettings.GetQualityLevel()]);
@@ -16,9 +19,6 @@ function Start()
 
 function OnGUI()
 {
-	Mixpanel.Token = Token;
-	Mixpanel.DistinctID = DistinctID;
-	
 	GUILayout.Label("This is an example demonstrating how to use the Mixpanel integration plugin for Unity3D.");
 	GUILayout.Label("All source code for this example is located in \"Assets/Mixpanel Analytics/MixpanelExample.js\".");
 
@@ -28,13 +28,7 @@ function OnGUI()
 		GUILayout.Label("Step 1: Set the Token property on the 'Mixpanel Example' object to your unique Mixpanel token string.");
 	}
 	
-	if(String.IsNullOrEmpty(Mixpanel.DistinctID))
-	{
-		GUI.color = Color.red;
-		GUILayout.Label("Step 2: Set the DistinctID property on the 'Mixpanel Example' object to the player's distinct identifier string.");
-	}
-	
-	if(String.IsNullOrEmpty(Mixpanel.Token) || String.IsNullOrEmpty(Mixpanel.DistinctID))
+	if(String.IsNullOrEmpty(Mixpanel.Token))
 		return;
 		
 	GUILayout.BeginHorizontal();
