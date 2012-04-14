@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>README.mdown</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body{
+    margin: 0 auto;
+    font-family: Georgia, Palatino, serif;
+    color: #444444;
+    line-height: 1;
+    max-width: 960px;
+    padding: 5px;
+}
+h1, h2, h3, h4 {
+    color: #111111;
+    font-weight: 400;
+}
+h1, h2, h3, h4, h5, p {
+    margin-bottom: 16px;
+    padding: 0;
+}
+h1 {
+    font-size: 28px;
+}
+h2 {
+    font-size: 22px;
+    margin: 20px 0 6px;
+}
+h3 {
+    font-size: 21px;
+}
+h4 {
+    font-size: 18px;
+}
+h5 {
+    font-size: 16px;
+}
+a {
+    color: #0099ff;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+a:hover {
+    text-decoration: none;
+    color: #ff6600;
+}
+a:visited {
+    color: purple;
+}
+ul, ol {
+    padding: 0;
+    margin: 0;
+}
+li {
+    line-height: 24px;
+    margin-left: 44px;
+}
+li ul, li ul {
+    margin-left: 24px;
+}
+p, ul, ol {
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 540px;
+}
+pre {
+    padding: 0px 24px;
+    max-width: 800px;
+    white-space: pre-wrap;
+}
+code {
+    font-family: Consolas, Monaco, Andale Mono, monospace;
+    line-height: 1.5;
+    font-size: 13px;
+}
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+blockquote {
+    border-left:.5em solid #eee;
+    padding: 0 2em;
+    margin-left:0;
+    max-width: 476px;
+}
+blockquote  cite {
+    font-size:14px;
+    line-height:20px;
+    color:#bfbfbf;
+}
+blockquote cite:before {
+    content: '\2014 \00A0';
+}
+
+blockquote p {  
+    color: #666;
+    max-width: 460px;
+}
+hr {
+    width: 540px;
+    text-align: left;
+    margin: 0 auto 0 0;
+    color: #999;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+button, input {
+  line-height: normal;
+  *overflow: visible;
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+input[type=checkbox], input[type=radio] {
+  cursor: pointer;
+}
+/* override default chrome & firefox settings */
+input:not([type="image"]), textarea {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+label,
+input,
+select,
+textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: normal;
+  margin-bottom: 18px;
+}
+input[type=checkbox], input[type=radio] {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+input[type=text],
+input[type=password],
+textarea,
+select {
+  display: inline-block;
+  width: 210px;
+  padding: 4px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  height: 18px;
+  color: #808080;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+select, input[type=file] {
+  height: 27px;
+  line-height: 27px;
+}
+textarea {
+  height: auto;
+}
+
+/* grey out placeholders */
+:-moz-placeholder {
+  color: #bfbfbf;
+}
+::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+input[type=text],
+input[type=password],
+select,
+textarea {
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  outline: none;
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+/* buttons */
+button {
+  display: inline-block;
+  padding: 4px 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #0064cd;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -o-linear-gradient(top, #049cdb, #0064cd);
+  background-image: linear-gradient(top, #049cdb, #0064cd);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid #004b9a;
+  border-bottom-color: #003f81;
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  border-color: #0064cd #0064cd #003f81;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+button:hover {
+  color: #fff;
+  background-position: 0 -15px;
+  text-decoration: none;
+}
+button:active {
+  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* CSS stylesheet is based on Kevin Burke's Markdown.css project (http://kevinburke.bitbucket.org/markdowncss) */
+</style>
+</head>
+<body>
+<h1>Setup</h1>
+
+<p>If you want to track user behavior on your Unity3D application, first download the <a href="https://github.com/downloads/holyfuzz/Mixpanel-Unity/mixpanel.unitypackage" title="mixpanel.unitypackage">mixpanel.unitypackage</a> file.</p>
+
+<p>Next, import <code>mixpanel.unitypackage</code> into your Unity project by selecting the "Assets" menu, hovering over "Import Package", and clicking "Custom Package".</p>
+
+<p><img src="https://github.com/holyfuzz/Mixpanel-Unity/raw/master/Docs/import_menu.png" alt="Import Package" title="Import Custom Package Menu" /></p>
+
+<p>Locate the <code>mixpanel.unitypackage</code> file you just downloaded and click "Open". You will see this window:</p>
+
+<p><img src="https://github.com/holyfuzz/Mixpanel-Unity/raw/master/Docs/import_window.png" alt="Import Package" title="Import Package Window" /></p>
+
+<p>From this window you can select the individual files you want to import into your Unity project. The only two <strong>required</strong> files for the API are <code>Mixpanel.js</code> and <code>LitJson.dll</code>. The <code>example.unity</code> and <code>MixpanelExample.js</code> files are for tutorial purposes only and not required to use the API. If you want you may uncheck these two <strong>optional</strong> files or delete them later from your project at any time.</p>
+
+<ol>
+<li><code>Mixpanel.js</code> - This is a <strong>required</strong> file which contains the core Mixpanel API for Unity3D.</li>
+<li><code>LitJson.dll</code> - This is a <strong>required</strong> file which is used by Mixpanel.js to translate Unity data types into JSON, the language understood by Mixpanel.</li>
+<li><code>MixpanelExample.js</code> - This is an <strong>optional</strong> file containing example source code demonstrating how to use the Mixpanel API. This tutorial is similar to the contents of this file, but doesn't follow it exactly.</li>
+<li><code>example.unity</code> - This is an <strong>optional</strong> scene file containing an object with the <code>MixpanelExample.js</code> script attached. You can open the scene in the Unity editor and test out the API from this scene.</li>
+</ol>
+
+<p>Click the "Import" button to finish importing the Mixpanel API into your project.</p>
+
+<p>As an alternative to simply downloading <code>mixpanel.unitypackage</code>, you may also clone the git repository, in which case you can simply copy the API files from the repository:</p>
+
+<pre><code>git clone https://holyfuzz@github.com/holyfuzz/Mixpanel-Unity.git
+</code></pre>
+
+<p>This repository contains an entire Unity3D project, which is set in a mode to work with version control systems such as Git. This mode automatically creates additional <code>Mixpanel.js.meta</code>, <code>LitJson.dll.meta</code>, <code>MixpanelExample.js.meta</code>, and <code>example.unity.meta</code> files. You do <strong>not</strong> need to copy these additional "<code>.meta</code>" files into your own project.</p>
+
+<h1>Initializing Mixpanel</h1>
+
+<p>The first thing you need to do in order to use Mixpanel is to initialize the <code>Mixpanel</code> class. At the very least you must set your unique <code>Mixpanel.Token</code> string. We recommend doing this in the <code>Start</code> method of a script in the very first scene of your application.</p>
+
+<pre><code>function Start()
+{
+    Mixpanel.Token = "YOUR MIXPANEL TOKEN HERE";
+}
+</code></pre>
+
+<h1>Tracking Events</h1>
+
+<p>After initializing the <code>Mixpanel</code> class, you are ready to track events. Sending an event with no properties is very easy, and you can do this from anywhere in any of your scripts:</p>
+
+<pre><code>Mixpanel.SendEvent("name of event");
+</code></pre>
+
+<p>If you want to add properties to the event you can do the following:</p>
+
+<pre><code>Mixpanel.SendEvent("name of event", {
+    "name of property 1" : value_of_property1, // Most common types such as int, float, double, and string are supported.
+    "name of property 2" : value_of_property2
+});
+</code></pre>
+
+<h1>Super Properties</h1>
+
+<p>Super properties are an easy way to store data about your users. They are global properties that get attached to everything you are tracking. More information can be found <a href="https://mixpanel.com/docs/properties-or-segments/how-do-i-set-a-property-every-time">here</a>.</p>
+
+<p>If you want to register a super property for your current user, you can do it as follows:</p>
+
+<pre><code>Mixpanel.SuperProperties.Add("name of super_property", value_of_super_property); // Most common types such as int, float, double, and string are supported.
+</code></pre>
+
+<p>It's often useful to log data about your application with all events. For example, we can add some super properties to the <code>Start</code> method we created earlier:</p>
+
+<pre><code>function Start()
+{
+    Mixpanel.Token = "YOUR MIXPANEL TOKEN HERE";
+
+    // Set some "super properties" to be sent with every event.
+    Mixpanel.SuperProperties.Add("platform", Application.platform.ToString());
+    Mixpanel.SuperProperties.Add("quality", QualitySettings.names[QualitySettings.GetQualityLevel()]);
+    Mixpanel.SuperProperties.Add("fullscreen", Screen.fullScreen);
+    Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
+}
+</code></pre>
+
+<h1>Identifying a User</h1>
+
+<p>Mixpanel uses a one-way hash of the MAC address of the current device as its default identifier. You can easily change the identifier with the following call:</p>
+
+<pre><code>Mixpanel.DistinctID = "the distinct ID string of your user";
+</code></pre>
+
+<p>Typically this would be done in that <code>Start</code> method, so our <code>Start</code> method from earlier could be further expanded like this:</p>
+
+<pre><code>function Start()
+{
+    Mixpanel.Token = "YOUR MIXPANEL TOKEN HERE";
+    Mixpanel.DistinctID = "the distinct ID string of your user";
+
+    // Set some "super properties" to be sent with every event.
+    Mixpanel.SuperProperties.Add("platform", Application.platform.ToString());
+    Mixpanel.SuperProperties.Add("quality", QualitySettings.names[QualitySettings.GetQualityLevel()]);
+    Mixpanel.SuperProperties.Add("fullscreen", Screen.fullScreen);
+    Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
+}
+</code></pre>
+
+</body>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
+</html>
