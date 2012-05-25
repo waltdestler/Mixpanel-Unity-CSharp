@@ -85,6 +85,6 @@ Typically this would be done in that `Start` method, so our `Start` method from 
 		Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
 	}
 
-[mixpanel_package]: https://github.com/downloads/holyfuzz/Mixpanel-Unity/mixpanel.unitypackage "mixpanel.unitypackage"
-[import_menu]: https://github.com/holyfuzz/Mixpanel-Unity/raw/master/Docs/import_menu.png "Import Custom Package Menu"
-[import_window]: https://github.com/holyfuzz/Mixpanel-Unity/raw/master/Docs/import_window.png "Import Package Window"
+[mixpanel_package]: https://github.com/downloads/waltdestler/Mixpanel-Unity/mixpanel.unitypackage "mixpanel.unitypackage"
+[import_menu]: https://github.com/waltdestler/Mixpanel-Unity/raw/master/Docs/import_menu.png "Import Custom Package Menu"
+[import_window]: https://github.com/waltdestler/Mixpanel-Unity/raw/master/Docs/import_window.png "Import Package Window"
