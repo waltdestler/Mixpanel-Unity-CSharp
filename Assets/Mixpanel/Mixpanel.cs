@@ -38,11 +38,6 @@ public static class Mixpanel
 			Debug.LogError("Attempted to send an event without setting the Mixpanel.Token variable.");
 			return;
 		}
-		if(string.IsNullOrEmpty(DistinctID))
-		{
-			Debug.LogError("Attempted to send an event without setting the Mixpanel.DistinctID variable.");
-			return;
-		}
 
 		if(!_coroutineRunning)
 		{
@@ -51,9 +46,9 @@ public static class Mixpanel
 		}
 
 		Dictionary<string, object> propsDict = new Dictionary<string, object>();
-		propsDict.Add("distinct_id", DistinctID);
-		if(!string.IsNullOrEmpty(Token))
-			propsDict.Add("token", Token);
+		if(!string.IsNullOrEmpty(DistinctID))
+			propsDict.Add("distinct_id", DistinctID);
+		propsDict.Add("token", Token);
 		foreach(var kvp in SuperProperties)
 		{
 			if(kvp.Value is float) // LitJSON doesn't support floats.
