@@ -13,6 +13,9 @@ public static class Mixpanel
 	// Set this to the distinct ID of the current user.
 	public static string DistinctID;
 
+	// Set to true to enable debug logging.
+	public static bool EnableLogging;
+
 	// Add any custom "super properties" to this dictionary. These are properties sent with every event.
 	public static Dictionary<string, object> SuperProperties = new Dictionary<string, object>();
 
@@ -82,7 +85,8 @@ public static class Mixpanel
 		jsonDict.Add("event", eventName);
 		jsonDict.Add("properties", propsDict);
 		string jsonStr = JsonMapper.ToJson(jsonDict);
-		Debug.Log("Sending mixpanel event: " + jsonStr);
+		if(EnableLogging)
+			Debug.Log("Sending mixpanel event: " + jsonStr);
 		string jsonStr64 = EncodeTo64(jsonStr);
 		string url = string.Format(API_URL_FORMAT, jsonStr64);
 		_urlQueue.Enqueue(url);
@@ -120,11 +124,9 @@ public static class Mixpanel
 					Debug.LogWarning("Error sending mixpanel event: " + www.error);
 				else if(www.text.Trim() == "0")
 					Debug.LogWarning("Error on mixpanel processing event: " + www.text);
-				else
-				{
+				else if(EnableLogging)
 					Debug.Log("Mixpanel processed event: " + www.text);
-					_urlQueue.Dequeue();
-				}
+				_urlQueue.Dequeue();
 			}
 			else
 			{
