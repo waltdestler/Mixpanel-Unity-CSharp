@@ -21,7 +21,7 @@ Click the "Import" button to finish importing the Mixpanel API into your project
 
 As an alternative to simply downloading `mixpanel.unitypackage`, you may also clone the git repository, in which case you can simply copy the API files from the repository:
 
-	git clone https://holyfuzz@github.com/holyfuzz/Mixpanel-Unity.git
+	git clone https://github.com/waltdestler/Mixpanel-Unity.git
 
 This repository contains an entire Unity3D project, which is set in a mode to work with version control systems such as Git. This mode automatically creates additional `Mixpanel.js.meta`, `LitJson.dll.meta`, `MixpanelExample.js.meta`, and `example.unity.meta` files. You do **not** need to copy these additional "`.meta`" files into your own project.
 
