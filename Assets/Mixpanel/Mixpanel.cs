@@ -1,27 +1,29 @@
-﻿import System;
-import System.Collections.Generic;
-import System.Text;
-import LitJson;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using LitJson;
+using UnityEngine;
 
 public static class Mixpanel
 {
 	// Set this to your Mixpanel token.
-	public var Token : String;
+	public static string Token;
 
 	// Set this to the distinct ID of the current user.
-	public var DistinctID : String;
+	public static string DistinctID;
 
 	// Add any custom "super properties" to this dictionary. These are properties sent with every event.
-	public var SuperProperties = new Dictionary.<String, Object>();
+	public static Dictionary<string, object> SuperProperties = new Dictionary<string, object>();
 
-	private var API_URL_FORMAT = "http://api.mixpanel.com/track/?data={0}";
-	private var _coroutineObject : MonoBehaviour;
-	private var _urlQueue = new Queue.<String>();
-	private var _coroutineRunning = false;
+	private const string API_URL_FORMAT = "http://api.mixpanel.com/track/?data={0}";
+	private static MonoBehaviour _coroutineObject;
+	private static readonly Queue<string> _urlQueue = new Queue<string>();
+	private static bool _coroutineRunning = false;
 
 	// Call this to send an event to Mixpanel.
 	// eventName: The name of the event. (Can be anything you'd like.)
-	public function SendEvent(eventName : String)
+	public static void SendEvent(string eventName)
 	{
 		SendEvent(eventName, null);
 	}
@@ -29,25 +31,14 @@ public static class Mixpanel
 	// Call this to send an event to Mixpanel.
 	// eventName: The name of the event. (Can be anything you'd like.)
 	// properties: A dictionary containing any properties in addition to those in the Mixpanel.SuperProperties dictionary.
-	public function SendEvent(eventName : String, properties : Hashtable)
+	public static void SendEvent(string eventName, IDictionary<string, object> properties)
 	{
-		var newProps = new Dictionary.<String, Object>();
-		for(kvp in properties)
-			newProps.Add(kvp.Key, kvp.Value);
-		SendEvent(eventName, newProps);
-	}
-
-	// Call this to send an event to Mixpanel.
-	// eventName: The name of the event. (Can be anything you'd like.)
-	// properties: A dictionary containing any properties in addition to those in the Mixpanel.SuperProperties dictionary.
-	public function SendEvent(eventName : String, properties : IDictionary.<String, Object>)
-	{
-		if(String.IsNullOrEmpty(Token))
+		if(string.IsNullOrEmpty(Token))
 		{
 			Debug.LogError("Attempted to send an event without setting the Mixpanel.Token variable.");
 			return;
 		}
-		if(String.IsNullOrEmpty(DistinctID))
+		if(string.IsNullOrEmpty(DistinctID))
 		{
 			Debug.LogError("Attempted to send an event without setting the Mixpanel.DistinctID variable.");
 			return;
@@ -59,73 +50,77 @@ public static class Mixpanel
 			_coroutineRunning = true;
 		}
 
-		var propsDict = new Dictionary.<String, Object>();
+		Dictionary<string, object> propsDict = new Dictionary<string, object>();
 		propsDict.Add("distinct_id", DistinctID);
-		if(!String.IsNullOrEmpty(Token))
+		if(!string.IsNullOrEmpty(Token))
 			propsDict.Add("token", Token);
-		for(var kvp in SuperProperties)
+		foreach(var kvp in SuperProperties)
 		{
-			if(kvp.Value instanceof Single) // LitJSON doesn't support floats.
+			if(kvp.Value is float) // LitJSON doesn't support floats.
 			{
-				var s : Single = kvp.Value;
-				var d : Double = s;
+				float f = (float)kvp.Value;
+				double d = f;
 				propsDict.Add(kvp.Key, d);
 			}
 			else
+			{
 				propsDict.Add(kvp.Key, kvp.Value);
+			}
 		}
 		if(properties != null)
 		{
-			for(var kvp in properties)
+			foreach(var kvp in properties)
 			{
-				if(kvp.Value instanceof Single) // LitJSON doesn't support floats.
+				if(kvp.Value is float) // LitJSON doesn't support floats.
 				{
-					s = kvp.Value;
-					d = s;
+					float f = (float)kvp.Value;
+					double d = f;
 					propsDict.Add(kvp.Key, d);
 				}
 				else
+				{
 					propsDict.Add(kvp.Key, kvp.Value);
+				}
 			}
 		}
-		var jsonDict = new Dictionary.<String, Object>();
+		Dictionary<string, object> jsonDict = new Dictionary<string, object>();
 		jsonDict.Add("event", eventName);
 		jsonDict.Add("properties", propsDict);
-		var jsonStr = JsonMapper.ToJson(jsonDict);
+		string jsonStr = JsonMapper.ToJson(jsonDict);
 		Debug.Log("Sending mixpanel event: " + jsonStr);
-		var jsonStr64 = EncodeTo64(jsonStr);
-		var url = String.Format(API_URL_FORMAT, jsonStr64);
+		string jsonStr64 = EncodeTo64(jsonStr);
+		string url = string.Format(API_URL_FORMAT, jsonStr64);
 		_urlQueue.Enqueue(url);
 	}
 
-	private function EncodeTo64(toEncode : String) : String
+	private static string EncodeTo64(string toEncode)
 	{
 		var toEncodeAsBytes = Encoding.ASCII.GetBytes(toEncode);
 		var returnValue = Convert.ToBase64String(toEncodeAsBytes);
 		return returnValue;
 	}
 
-	private function StartCoroutine(coroutine : IEnumerator)
+	private static void StartCoroutine(IEnumerator coroutine)
 	{
 		if(_coroutineObject == null)
 		{
 			var go = new GameObject("Mixpanel Coroutines");
 			UnityEngine.Object.DontDestroyOnLoad(go);
-			_coroutineObject = go.AddComponent.<MonoBehaviour>();
+			_coroutineObject = go.AddComponent<MonoBehaviour>();
 		}
 
 		_coroutineObject.StartCoroutine(coroutine);
 	}
 
-	private function SendQueuedEventsCoroutine() : IEnumerator
+	private static IEnumerator SendQueuedEventsCoroutine()
 	{
 		while(true)
 		{
 			if(_urlQueue.Count > 0)
 			{
-				var url = _urlQueue.Peek();
-				var www = new WWW(url);
-				yield www;
+				string url = _urlQueue.Peek();
+				WWW www = new WWW(url);
+				yield return www;
 				if(www.error != null)
 					Debug.LogWarning("Error sending mixpanel event: " + www.error);
 				else if(www.text.Trim() == "0")
@@ -138,7 +133,7 @@ public static class Mixpanel
 			}
 			else
 			{
-				yield;
+				yield return 1;
 			}
 		}
 	}
