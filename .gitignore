@@ -4,3 +4,7 @@
 *.unityproj
 *.sln
 *.suo
+/obj/
+/*.csproj
+/*.pidb
+/*.userprefs
