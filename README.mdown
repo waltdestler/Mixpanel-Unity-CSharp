@@ -69,7 +69,7 @@ It's often useful to log data about your application with all events. For exampl
 	}
 
 # Identifying a User #
-Mixpanel uses a one-way hash of the MAC address of the current device as its default identifier. You can easily change the identifier with the following call:
+By default, your users are identified by a randomly generated "globally unique identifier" that is stored on their computer or device. You can easily change the identifier with the following call:
 
 	Mixpanel.DistinctID = "the distinct ID string of your user";
 

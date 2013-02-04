@@ -47,10 +47,16 @@ public static class Mixpanel
 			StartCoroutine(SendQueuedEventsCoroutine());
 			_coroutineRunning = true;
 		}
+		
+		if(string.IsNullOrEmpty(DistinctID))
+		{
+			if(!PlayerPrefs.HasKey("mixpanel_distinct_id"))
+				PlayerPrefs.SetString("mixpanel_distinct_id", Guid.NewGuid().ToString());
+			DistinctID = PlayerPrefs.GetString("mixpanel_distinct_id");
+		}
 
 		Dictionary<string, object> propsDict = new Dictionary<string, object>();
-		if(!string.IsNullOrEmpty(DistinctID))
-			propsDict.Add("distinct_id", DistinctID);
+		propsDict.Add("distinct_id", DistinctID);
 		propsDict.Add("token", Token);
 		foreach(var kvp in SuperProperties)
 		{
