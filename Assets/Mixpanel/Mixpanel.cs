@@ -21,8 +21,6 @@ public static class Mixpanel
 
 	private const string API_URL_FORMAT = "http://api.mixpanel.com/track/?data={0}";
 	private static MonoBehaviour _coroutineObject;
-	private static readonly Queue<string> _urlQueue = new Queue<string>();
-	private static bool _coroutineRunning = false;
 
 	// Call this to send an event to Mixpanel.
 	// eventName: The name of the event. (Can be anything you'd like.)
@@ -40,12 +38,6 @@ public static class Mixpanel
 		{
 			Debug.LogError("Attempted to send an event without setting the Mixpanel.Token variable.");
 			return;
-		}
-
-		if(!_coroutineRunning)
-		{
-			StartCoroutine(SendQueuedEventsCoroutine());
-			_coroutineRunning = true;
 		}
 		
 		if(string.IsNullOrEmpty(DistinctID))
@@ -95,7 +87,7 @@ public static class Mixpanel
 			Debug.Log("Sending mixpanel event: " + jsonStr);
 		string jsonStr64 = EncodeTo64(jsonStr);
 		string url = string.Format(API_URL_FORMAT, jsonStr64);
-		_urlQueue.Enqueue(url);
+		StartCoroutine(SendEventCoroutine(url));
 	}
 
 	private static string EncodeTo64(string toEncode)
@@ -117,27 +109,15 @@ public static class Mixpanel
 		_coroutineObject.StartCoroutine(coroutine);
 	}
 
-	private static IEnumerator SendQueuedEventsCoroutine()
+	private static IEnumerator SendEventCoroutine(string url)
 	{
-		while(true)
-		{
-			if(_urlQueue.Count > 0)
-			{
-				string url = _urlQueue.Peek();
-				WWW www = new WWW(url);
-				yield return www;
-				if(www.error != null)
-					Debug.LogWarning("Error sending mixpanel event: " + www.error);
-				else if(www.text.Trim() == "0")
-					Debug.LogWarning("Error on mixpanel processing event: " + www.text);
-				else if(EnableLogging)
-					Debug.Log("Mixpanel processed event: " + www.text);
-				_urlQueue.Dequeue();
-			}
-			else
-			{
-				yield return 1;
-			}
-		}
+		WWW www = new WWW(url);
+		yield return www;
+		if(www.error != null)
+			Debug.LogWarning("Error sending mixpanel event: " + www.error);
+		else if(www.text.Trim() == "0")
+			Debug.LogWarning("Error on mixpanel processing event: " + www.text);
+		else if(EnableLogging)
+			Debug.Log("Mixpanel processed event: " + www.text);
 	}
 }
