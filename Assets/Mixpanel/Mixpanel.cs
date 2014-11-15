@@ -19,7 +19,7 @@ public static class Mixpanel
 	// Add any custom "super properties" to this dictionary. These are properties sent with every event.
 	public static Dictionary<string, object> SuperProperties = new Dictionary<string, object>();
 
-	private const string API_URL_FORMAT = "http://api.mixpanel.com/track/?data={0}";
+	private const string API_URL_FORMAT = "https://api.mixpanel.com/track/?data={0}";
 	private static MonoBehaviour _coroutineObject;
 
 	// Call this to send an event to Mixpanel.
