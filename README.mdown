@@ -86,6 +86,22 @@ Typically this would be done in that `Start` method, so our `Start` method from 
 		Mixpanel.SuperProperties.Add("fullscreen", Screen.fullScreen);
 		Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
 	}
+	
+# Sending User Data #
+
+Here is an example on how to send user data to Mixpanel:
+
+			Mixpanel.DistinctID = "the distinct ID string of your user";
+			Mixpanel.SendUser(new Dictionary<string, object>
+            {
+				{"first_name", "John"},
+				{"last_name", "Doe"},
+				{"gender", "male"},
+				{"email", "john@doe.com"},
+				{"foo", "bar"},
+				{"bar", "foo"},
+			});
+	
 
 [mixpanel_package]: https://raw.github.com/waltdestler/Mixpanel-Unity-CSharp/master/mixpanel-cs.unitypackage "mixpanel.unitypackage"
 [import_menu]: https://github.com/waltdestler/Mixpanel-Unity-CSharp/raw/master/Docs/import_menu.png "Import Custom Package Menu"
