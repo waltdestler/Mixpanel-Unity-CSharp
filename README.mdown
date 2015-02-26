@@ -53,7 +53,7 @@ Super properties are an easy way to store data about your users. They are global
 
 If you want to register a super property for your current user, you can do it as follows:
 
-	Mixpanel.SuperProperties.Add("name of super_property", value_of_super_property); // Most common types such as int, float, double, and string are supported.
+	Mixpanel.SuperProperties.Add("name of super_property", () => value_of_super_property); // Most common types such as int, float, double, and string are supported.
 
 It's often useful to log data about your application with all events. For example, we can add some super properties to the `Start` method we created earlier:
 
@@ -62,10 +62,10 @@ It's often useful to log data about your application with all events. For exampl
 		Mixpanel.Token = "YOUR MIXPANEL TOKEN HERE";
 
 		// Set some "super properties" to be sent with every event.
-		Mixpanel.SuperProperties.Add("platform", Application.platform.ToString());
-		Mixpanel.SuperProperties.Add("quality", QualitySettings.names[QualitySettings.GetQualityLevel()]);
-		Mixpanel.SuperProperties.Add("fullscreen", Screen.fullScreen);
-		Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
+		Mixpanel.SuperProperties.Add("platform", () => Application.platform.ToString());
+		Mixpanel.SuperProperties.Add("quality", () => QualitySettings.names[QualitySettings.GetQualityLevel()]);
+		Mixpanel.SuperProperties.Add("fullscreen", () => Screen.fullScreen);
+		Mixpanel.SuperProperties.Add("resolution", () => Screen.width + "x" + Screen.height);
 	}
 
 # Identifying a User #
