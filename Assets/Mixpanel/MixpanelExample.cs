@@ -17,10 +17,10 @@ public class MixpanelExample : MonoBehaviour
 		Mixpanel.DistinctID = DistinctID;
 
 		// Set some "super properties" to be sent with every event.
-		Mixpanel.SuperProperties.Add("platform", Application.platform.ToString());
-		Mixpanel.SuperProperties.Add("quality", QualitySettings.names[QualitySettings.GetQualityLevel()]);
-		Mixpanel.SuperProperties.Add("fullscreen", Screen.fullScreen);
-		Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
+		Mixpanel.SuperProperties.Add("platform", () => Application.platform.ToString());
+		Mixpanel.SuperProperties.Add("quality", () => QualitySettings.names[QualitySettings.GetQualityLevel()]);
+		Mixpanel.SuperProperties.Add("fullscreen", () => Screen.fullScreen);
+		Mixpanel.SuperProperties.Add("resolution", () => Screen.width + "x" + Screen.height);
 	}
 
 	public void OnGUI()

@@ -17,7 +17,7 @@ public static class Mixpanel
 	public static bool EnableLogging;
 
 	// Add any custom "super properties" to this dictionary. These are properties sent with every event.
-	public static Dictionary<string, object> SuperProperties = new Dictionary<string, object>();
+	public static Dictionary<string, Func<object>> SuperProperties = new Dictionary<string, Func<object>>();
 
 	private const string API_URL_FORMAT = "https://api.mixpanel.com/track/?data={0}";
 	private static MonoBehaviour _coroutineObject;
@@ -52,15 +52,16 @@ public static class Mixpanel
 		propsDict.Add("token", Token);
 		foreach(var kvp in SuperProperties)
 		{
-			if(kvp.Value is float) // LitJSON doesn't support floats.
+			var value = kvp.Value();
+			if(value is float) // LitJSON doesn't support floats.
 			{
-				float f = (float)kvp.Value;
+				float f = (float)value;
 				double d = f;
 				propsDict.Add(kvp.Key, d);
 			}
 			else
 			{
-				propsDict.Add(kvp.Key, kvp.Value);
+				propsDict.Add(kvp.Key, value);
 			}
 		}
 		if(properties != null)
